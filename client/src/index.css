@@ -1,0 +1,184 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #CC1100;
+  --color-secondary: #F1FAEE;
+  --color-accent: #457B9D;
+  --color-dark: #1D3557;
+}
+
+/* Ensure the root height for animations */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f9fafb;
+  color: #1f2937;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+.auth-bg {
+  background: linear-gradient(135deg, #f9fafb 0%, #fff1f2 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-blob {
+  position: absolute;
+  filter: blur(60px);
+  z-index: 0;
+  opacity: 0.4;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.blob-1 {
+  background-color: #fecaca;
+  /* red-200 */
+  width: 500px;
+  height: 500px;
+  top: -100px;
+  left: -100px;
+  animation: float-1 25s infinite alternate ease-in-out;
+}
+
+.blob-2 {
+  background-color: #fee2e2;
+  /* red-100 */
+  width: 400px;
+  height: 400px;
+  bottom: -50px;
+  right: -50px;
+  animation: float-2 20s infinite alternate ease-in-out;
+}
+
+@keyframes float-1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(100px, 50px) scale(1.1);
+  }
+}
+
+@keyframes float-2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-80px, -40px) scale(1.05);
+  }
+}
+
+.droplet {
+  position: absolute;
+  background: radial-gradient(circle at 30% 30%, #ff4d4d, #cc0000);
+  width: 18px;
+  height: 18px;
+  border-radius: 0 50% 50% 50%;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: fall 12s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-100px) rotate(45deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.3;
+  }
+
+  90% {
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* ECG Heartbeat Animation - Truly Infinite & Realistic */
+.ecg-container {
+  position: absolute;
+  top: 60%;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  transform: translateY(-50%);
+  overflow: hidden;
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 1;
+  /* Fade edges for infinite look */
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+.ecg-scroll {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #cc0000 0%, #ff1a1a 50%, #cc0000 100%);
+  /* Complex, realistic ECG pulse pattern */
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0 10 L15 10 L17 7 L19 13 L21 10 L30 10 L32 2 L35 18 L38 10 L45 10 L47 8 L49 12 L51 10 L65 10 L67 7 L69 13 L71 10 L80 10 L82 2 L85 18 L88 10 L100 10" fill="none" stroke="black" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  mask-size: 800px 100%;
+  /* Fixed size prevents rounding gaps */
+  mask-repeat: repeat-x;
+  animation: ecg-infinite-flow 25s linear infinite;
+  will-change: mask-position;
+}
+
+@keyframes ecg-infinite-flow {
+  from {
+    mask-position: 1600px 0;
+  }
+
+  /* Matches mask-size multiple */
+  to {
+    mask-position: 0 0;
+  }
+}
+
+/* Global Button Hover "Popup" Effect */
+button,
+a.rounded-md,
+.clickable {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease !important;
+}
+
+button:hover,
+a.rounded-md:hover,
+.clickable:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  /* Explicitly prevent color changes if being applied by tailwind hover: classes */
+  background-color: inherit;
+}
+
+/* Specific fix for red buttons to keep the exact same color on hover */
+button.bg-primary:hover,
+a.bg-primary:hover {
+  background-color: var(--color-primary, #CC1100) !important;
+}
+
+button:active,
+a.rounded-md:active,
+.clickable:active {
+  transform: scale(0.95);
+}
